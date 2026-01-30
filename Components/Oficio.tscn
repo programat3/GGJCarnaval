@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dnmk8oo7v3epq"]
+
+[ext_resource type="Script" uid="uid://gmv52adv45qo" path="res://Components/Scripts/oficio.gd" id="1_pgf7g"]
+
+[node name="Oficio" type="Area2D" unique_id=2049533389]
+monitoring = false
+monitorable = false
+script = ExtResource("1_pgf7g")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=2094887703]
+polygon = PackedVector2Array(-45, -39, -45, 38, 45, 26, 44, -39)
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1264450374]
+target_position = Vector2(0, -150)
+collide_with_areas = true
+collide_with_bodies = false

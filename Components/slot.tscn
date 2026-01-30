@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bcjxh2dat4o37"]
+
+[ext_resource type="Script" uid="uid://1gqkbvefmucr" path="res://Components/slot.gd" id="1_jeuiu"]
+[ext_resource type="Texture2D" uid="uid://b3o0d7cyundet" path="res://Assets/Sprites/Cards/Outliner_Card_01.png" id="2_38b1h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gbba"]
+size = Vector2(92.5, 138)
+
+[node name="slot" type="Area2D" unique_id=1405306621]
+monitoring = false
+monitorable = false
+script = ExtResource("1_jeuiu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2071113205]
+shape = SubResource("RectangleShape2D_8gbba")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1412738227]
+texture = ExtResource("2_38b1h")

@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://c6ffkw0jj5qck"]
+
+[ext_resource type="Script" uid="uid://l5apouosldlb" path="res://Scenes/Controllers/CardController.gd" id="1_jjgbg"]
+[ext_resource type="Texture2D" uid="uid://drxm0bgovxm8k" path="res://Assets/Sprites/Cards/Back_Card_01.png" id="3_8gbba"]
+[ext_resource type="PackedScene" uid="uid://d10snob30ub1i" path="res://Components/play_zone.tscn" id="3_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://bcjxh2dat4o37" path="res://Components/slot.tscn" id="3_kry3j"]
+
+[node name="Main" type="Node2D" unique_id=1874896625]
+
+[node name="Card_spawn" type="TextureButton" parent="." unique_id=1150373148]
+offset_left = 38.0
+offset_top = 139.0
+offset_right = 128.0
+offset_bottom = 279.0
+texture_normal = ExtResource("3_8gbba")
+
+[node name="CardManager" type="Node2D" parent="." unique_id=1435220689]
+script = ExtResource("1_jjgbg")
+
+[node name="slot" parent="CardManager" unique_id=1405306621 instance=ExtResource("3_kry3j")]
+position = Vector2(185, 530)
+
+[node name="slot2" parent="CardManager" unique_id=2057165855 instance=ExtResource("3_kry3j")]
+position = Vector2(60, 370)
+
+[node name="slot1" parent="CardManager" unique_id=1625145771 instance=ExtResource("3_kry3j")]
+position = Vector2(185, 369)
+
+[node name="slot3" parent="CardManager" unique_id=870777413 instance=ExtResource("3_kry3j")]
+position = Vector2(60, 530)
+
+[node name="PlayZone" parent="." unique_id=709183700 instance=ExtResource("3_jjvhh")]
+position = Vector2(692, 466)
+
+[connection signal="pressed" from="Card_spawn" to="CardManager" method="_on_card_spawn_pressed"]
