@@ -4,10 +4,13 @@ var card_being_dragged
 var screen_size
 var types : Array
 var first :bool
+var gold := 0
+
+@onready var gold_label: Label = $GoldCounter
+@onready var exchangeZone = $"../ExchangeZone"
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	$PlayZone/Timer.connect("timeout", _on_timeout)
 	first = true
 
 func _process(delta: float) -> void:
@@ -20,13 +23,32 @@ func _input(event):
 		if event.is_pressed():
 			var card = raycast_check_card()
 			if card:
-				card_being_dragged = card
-
-		else:
-			card_being_dragged = null
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_R:
+				if card.played:
+					card_being_dragged = null
+				else:
+					card.save_position()
+					card_being_dragged = card
+					
+		elif event.is_released():
 			if card_being_dragged:
+				var played := false
+				
+				exchangeZone.force_shapecast_update()
+				var n = exchangeZone.get_collision_count()
+				
+				for i in range(n):
+					var collider = exchangeZone.get_collider(i)
+					if collider.get_parent() == card_being_dragged:
+						played = resolve_play_gold(card_being_dragged)
+						break
+						
+				if not played:
+					reject_play(card_being_dragged)
+					
+			card_being_dragged = null
+			
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_R and card_being_dragged:
 				card_being_dragged.rotation_degrees += 45
 
 func check_legal_move(t):
@@ -80,6 +102,25 @@ func _on_card_spawn_pressed() -> void:
 			var random_g = RandomNumberGenerator.new()
 			var r_i = random_g.randi_range(0,Globals.deck.size() - 1)
 			pop_card(r_i)
+
+func resolve_play_gold(card) -> bool:
+	if card.played:
+		return true
+
+	if card.data[2] == "oro":
+		card.played = true
+		add_gold()
+		card.queue_free()
+
+	return false
+
+func reject_play(card):
+	card.position = card.start_position
+	card.rotation = 0
+
+func add_gold():
+	gold += 1
+	gold_label.text = "Oro: %d" % gold
 
 func _on_timeout():
 	pass

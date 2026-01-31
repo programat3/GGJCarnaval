@@ -75,7 +75,8 @@ static var deck = [
 	["bailarin_con_mascara", "musico_zampona", "oficio"],
 	["musico_zampona", "musico_zampona", "oficio"],
 	["bailarin_con_mascara", "bailarin_con_mascara", "oficio"],
-	["simbolo", "simbolo", "oficio"]
+	["simbolo", "simbolo", "oficio"],
+	["oro", "1", "oro"],	
 ]
 
 static var hist_cards = []
