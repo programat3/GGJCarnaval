@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6ffkw0jj5qck"]
 
 [ext_resource type="Script" uid="uid://l5apouosldlb" path="res://Scenes/Controllers/CardController.gd" id="1_jjgbg"]
+[ext_resource type="Script" path="res://Scenes/GameManager.gd" id="1_kry3j"]
 [ext_resource type="Texture2D" uid="uid://drxm0bgovxm8k" path="res://Assets/Sprites/Cards/Back_Card_01.png" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://d10snob30ub1i" path="res://Components/play_zone.tscn" id="3_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bcjxh2dat4o37" path="res://Components/slot.tscn" id="3_kry3j"]
@@ -11,6 +12,7 @@ size = Vector2(80, 320)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
 
 [node name="Main" type="Node2D" unique_id=1874896625]
+script = ExtResource("1_kry3j")
 
 [node name="Card_spawn" type="TextureButton" parent="." unique_id=1150373148]
 offset_left = 28.0
@@ -35,7 +37,14 @@ position = Vector2(690, 90)
 [node name="slot4" parent="CardManager" unique_id=1405306621 instance=ExtResource("3_kry3j")]
 position = Vector2(890, 90)
 
-[node name="PlayZone" parent="CardManager" unique_id=709183700 instance=ExtResource("3_jjvhh")]
+[node name="GoldCounter" type="Label" parent="CardManager" unique_id=1163922224]
+offset_left = 1102.0
+offset_right = 1149.0
+offset_bottom = 23.0
+text = "Oro: 0"
+horizontal_alignment = 2
+
+[node name="PlayZone" parent="." unique_id=709183700 instance=ExtResource("3_jjvhh")]
 position = Vector2(864, 564)
 shape = SubResource("RectangleShape2D_jjvhh")
 target_position = Vector2(-700, 1)
@@ -44,17 +53,10 @@ collide_with_areas = true
 collide_with_bodies = false
 type = "PlayZone"
 
-[node name="ExchangeZone" parent="CardManager" unique_id=2008964339 instance=ExtResource("3_jjvhh")]
+[node name="ExchangeZone" parent="." unique_id=2008964339 instance=ExtResource("3_jjvhh")]
 position = Vector2(1043, 155)
 shape = SubResource("RectangleShape2D_kry3j")
 target_position = Vector2(0, 250)
 collision_mask = 2
-
-[node name="GoldCounter" type="Label" parent="CardManager" unique_id=1163922224]
-offset_left = 1102.0
-offset_right = 1149.0
-offset_bottom = 23.0
-text = "Oro: 0"
-horizontal_alignment = 2
 
 [connection signal="pressed" from="Card_spawn" to="CardManager" method="_on_card_spawn_pressed"]

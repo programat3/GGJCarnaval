@@ -17,12 +17,6 @@ func _process(delta: float) -> void:
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0 , screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
-		#if $PlayZone.is_colliding():
-			#var n = $PlayZone.get_collision_count()
-			#for i in n:
-				#if i.data not in Globals.hist_cards:
-					#pass
-					
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
@@ -34,6 +28,7 @@ func _input(event):
 					print("played")
 				else:
 					card_being_dragged = card
+					
 		elif event.is_released():
 			if card_being_dragged:
 				$PlayZone.force_shapecast_update()
@@ -46,12 +41,14 @@ func _input(event):
 						resolve_play(card_being_dragged)
 
 			card_being_dragged = null
-
-			card_being_dragged = null
+			
 	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_R:
-			if card_being_dragged:
+		if event.keycode == KEY_R and card_being_dragged:
 				card_being_dragged.rotation_degrees += 45
+
+func check_legal_move(t):
+	var legal = t.get_node("Oficio").check_raycast_legal_move()
+	return legal
 
 func raycast_check_card():
 	var space_state = get_world_2d().direct_space_state
