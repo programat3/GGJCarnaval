@@ -37,7 +37,7 @@ position = Vector2(690, 90)
 [node name="slot4" parent="CardManager" unique_id=1405306621 instance=ExtResource("3_kry3j")]
 position = Vector2(890, 90)
 
-[node name="PlayZone" parent="CardManager" unique_id=709183700 instance=ExtResource("3_jjvhh")]
+[node name="PlayZone" parent="." unique_id=709183700 instance=ExtResource("3_jjvhh")]
 position = Vector2(864, 564)
 shape = SubResource("RectangleShape2D_jjvhh")
 target_position = Vector2(-700, 1)
@@ -46,7 +46,7 @@ collide_with_areas = true
 collide_with_bodies = false
 type = "PlayZone"
 
-[node name="ExchangeZone" parent="CardManager" unique_id=2008964339 instance=ExtResource("3_jjvhh")]
+[node name="ExchangeZone" parent="." unique_id=2008964339 instance=ExtResource("3_jjvhh")]
 position = Vector2(1043, 155)
 shape = SubResource("RectangleShape2D_kry3j")
 target_position = Vector2(0, 250)
