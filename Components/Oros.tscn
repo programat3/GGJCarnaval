@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://b0jncxmh0iqmt"]
 
+[ext_resource type="Script" uid="uid://bpa2fqfxq12va" path="res://Components/Scripts/oros.gd" id="1_ihx0t"]
+
 [node name="Oros" type="Area2D" unique_id=111058743]
+script = ExtResource("1_ihx0t")

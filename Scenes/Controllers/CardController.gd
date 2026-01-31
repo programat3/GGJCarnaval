@@ -4,6 +4,9 @@ var card_being_dragged
 var screen_size
 var types : Array
 var first :bool
+var gold := 0
+
+@onready var gold_label = $/GoldCounter
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -32,13 +35,18 @@ func _input(event):
 				else:
 					card_being_dragged = card
 		elif event.is_released():
-			var n = $PlayZone.get_collision_count()
-			for i in n:
-				if i not in Globals.hist_cards:
-					$PlayZone/Timer.start()
+			if card_being_dragged:
+				$PlayZone.force_shapecast_update()
+
+				var n = $PlayZone.get_collision_count()
+				for i in range(n):
+					var collider = $PlayZone.get_collider(i)
+
+					if collider == card_being_dragged:
+						resolve_play(card_being_dragged)
+
 			card_being_dragged = null
-			#check legal move
-		else:
+
 			card_being_dragged = null
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_R:
@@ -65,6 +73,8 @@ func pop_card(i : int):
 	print("Popping")
 	var c = Globals.deck.pop_at(i)
 	var s = find_slot()
+	print("c:", c)
+	print("s:", s)
 	if s:
 		var card = preload("res://Components/Card.tscn").instantiate()
 		self.add_child(card)
@@ -92,6 +102,23 @@ func _on_card_spawn_pressed() -> void:
 			var random_g = RandomNumberGenerator.new()
 			var r_i = random_g.randi_range(0,Globals.deck.size() - 1)
 			pop_card(r_i)
+
+func resolve_play(card):
+	if card.played:
+		return
+
+	card.played = true
+
+	match card.data[2]:
+		"oro":
+			add_gold()
+			card.queue_free()
+		_:
+			print("Carta jugada:", card.data[2])
+
+func add_gold():
+	gold += 1
+	gold_label.text = "Oro: %d" % gold
 
 func _on_timeout():
 	pass

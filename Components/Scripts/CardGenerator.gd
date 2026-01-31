@@ -10,6 +10,7 @@ func generate(a, b, c):
 		"oficio":
 			var oficio_a = preload("res://Components/Oficio.tscn").instantiate()
 			var oficio_b = preload("res://Components/Oficio.tscn").instantiate()
+			
 
 			oficio_a.oficio = a
 			oficio_b.oficio = b
@@ -20,8 +21,10 @@ func generate(a, b, c):
 			$typeA.add_child(oficio_a)
 			$typeB.add_child(oficio_b)
 		"oro":
+			
 			print("Oro")
-			self.create_card($typeA,"res://Assets/Sprites/Cards/Oficios/" + a + ".png")
+			self.create_card($typeA,"res://Assets/Sprites/Cards/" + a + ".png")
+			self.create_card($typeB,"res://Assets/Sprites/Cards/" + a + ".png")
 		"tentacion":
 			print("tentacion")
 		"maldicion":

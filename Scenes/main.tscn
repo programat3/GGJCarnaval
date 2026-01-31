@@ -50,4 +50,11 @@ shape = SubResource("RectangleShape2D_kry3j")
 target_position = Vector2(0, 250)
 collision_mask = 2
 
+[node name="GoldCounter" type="Label" parent="CardManager" unique_id=1163922224]
+offset_left = 1102.0
+offset_right = 1149.0
+offset_bottom = 23.0
+text = "Oro: 0"
+horizontal_alignment = 2
+
 [connection signal="pressed" from="Card_spawn" to="CardManager" method="_on_card_spawn_pressed"]
