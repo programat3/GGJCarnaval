@@ -14,31 +14,13 @@ func _process(delta: float) -> void:
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0 , screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
-		#if $PlayZone.is_colliding():
-			#var n = $PlayZone.get_collision_count()
-			#for i in n:
-				#if i.data not in Globals.hist_cards:
-					#pass
-					
 
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
 			var card = raycast_check_card()
 			if card:
-				if card.played:
-					card_being_dragged = null
-					print("played")
-				else:
-					card_being_dragged = card
-		elif event.is_released():
-			var n = $PlayZone.get_collision_count()
-			for i in n:
-				if i.name == "FullCard":
-					var p = i.get_si
-					var oficioA = p.get_parent().get_node("typeA")
-					var oficioB = p.get_parent().get_node("typeB")
-					
+				card_being_dragged = card
 
 		else:
 			card_being_dragged = null
