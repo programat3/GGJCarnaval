@@ -11,13 +11,14 @@ func _ready() -> void:
 	first = true
 
 func _process(delta: float) -> void:
-	if $PlayZone.is_colliding():
-		var n = $PlayZone.get_collision_count()
-		for i in n:
-			if i.data not in Globals.hist_cards:
-				if card_being_dragged:
-					var mouse_pos = get_global_mouse_position()
-					card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0 , screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
+	if card_being_dragged:
+		var mouse_pos = get_global_mouse_position()
+		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0 , screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
+		#if $PlayZone.is_colliding():
+			#var n = $PlayZone.get_collision_count()
+			#for i in n:
+				#if i.data not in Globals.hist_cards:
+					#pass
 					
 
 func _input(event):
