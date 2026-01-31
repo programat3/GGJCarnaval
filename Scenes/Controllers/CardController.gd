@@ -6,11 +6,11 @@ var types : Array
 var first :bool
 var gold := 0
 
-@onready var gold_label = $/GoldCounter
+@onready var gold_label: Label = $GoldCounter
+@onready var exchangeZone = $"../ExchangeZone"
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	$PlayZone/Timer.connect("timeout", _on_timeout)
 	first = true
 
 func _process(delta: float) -> void:
@@ -25,21 +25,26 @@ func _input(event):
 			if card:
 				if card.played:
 					card_being_dragged = null
-					print("played")
 				else:
+					card.save_position()
 					card_being_dragged = card
 					
 		elif event.is_released():
 			if card_being_dragged:
-				$PlayZone.force_shapecast_update()
-
-				var n = $PlayZone.get_collision_count()
+				var played := false
+				
+				exchangeZone.force_shapecast_update()
+				var n = exchangeZone.get_collision_count()
+				
 				for i in range(n):
-					var collider = $PlayZone.get_collider(i)
-
-					if collider == card_being_dragged:
-						resolve_play(card_being_dragged)
-
+					var collider = exchangeZone.get_collider(i)
+					if collider.get_parent() == card_being_dragged:
+						played = resolve_play_gold(card_being_dragged)
+						break
+						
+				if not played:
+					reject_play(card_being_dragged)
+					
 			card_being_dragged = null
 			
 	if event is InputEventKey and event.pressed:
@@ -70,8 +75,6 @@ func pop_card(i : int):
 	print("Popping")
 	var c = Globals.deck.pop_at(i)
 	var s = find_slot()
-	print("c:", c)
-	print("s:", s)
 	if s:
 		var card = preload("res://Components/Card.tscn").instantiate()
 		self.add_child(card)
@@ -100,18 +103,20 @@ func _on_card_spawn_pressed() -> void:
 			var r_i = random_g.randi_range(0,Globals.deck.size() - 1)
 			pop_card(r_i)
 
-func resolve_play(card):
+func resolve_play_gold(card) -> bool:
 	if card.played:
-		return
+		return true
 
-	card.played = true
+	if card.data[2] == "oro":
+		card.played = true
+		add_gold()
+		card.queue_free()
 
-	match card.data[2]:
-		"oro":
-			add_gold()
-			card.queue_free()
-		_:
-			print("Carta jugada:", card.data[2])
+	return false
+
+func reject_play(card):
+	card.position = card.start_position
+	card.rotation = 0
 
 func add_gold():
 	gold += 1

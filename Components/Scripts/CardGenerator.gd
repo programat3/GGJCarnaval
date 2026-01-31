@@ -4,6 +4,11 @@ class_name Card
 @export var played := false
 @export var data : Array[String]
 
+var start_position: Vector2
+
+func save_position():
+	start_position = position
+
 func generate(a, b, c):
 	data = [a,b,c]
 	match c:
