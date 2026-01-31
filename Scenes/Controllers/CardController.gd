@@ -34,16 +34,22 @@ func _input(event):
 		elif event.is_released():
 			var n = $PlayZone.get_collision_count()
 			for i in n:
-				if i not in Globals.hist_cards:
-					$PlayZone/Timer.start()
-			card_being_dragged = null
-			#check legal move
+				if i.name == "FullCard":
+					var p = i.get_si
+					var oficioA = p.get_parent().get_node("typeA")
+					var oficioB = p.get_parent().get_node("typeB")
+					
+
 		else:
 			card_being_dragged = null
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_R:
 			if card_being_dragged:
 				card_being_dragged.rotation_degrees += 45
+
+func check_legal_move(t):
+	var legal = t.get_node("Oficio").check_raycast_legal_move()
+	return legal
 
 func raycast_check_card():
 	var space_state = get_world_2d().direct_space_state
