@@ -11,7 +11,8 @@ var flag = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$PlayZone/Timer.connect("timeout", _timeout)
+	pass
+	#$PlayZone/Timer.connect("timeout", _timeout)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -26,23 +27,25 @@ func _process(delta: float) -> void:
 			print(card_data)
 			if card_data[2] not in ["oro", "maldicion", "tentacion"]:
 				print("legal")
-				if card_data not in Globals.hist_cards and flag:
-					$PlayZone/Timer.start()
-					flag = false
+				if card_data not in Globals.hist_cards :
+					if legal and card_data[2] not in ["oro", "maldicion", "tentacion"]:
+						Globals.hist_cards.append(card_data)
+						card.play_card(pos)
+						count_time = max_time
 			
-func _timeout():
-	count_time -= 1
-	if count_time < 0:
-		if legal and card_data[2] not in ["oro", "maldicion", "tentacion"]:
-			Globals.hist_cards.append(card_data)
-			card.play_card(pos)
-			count_time = max_time
-			flag = true
-			$Timer.text = ""
-		pass
-	else:
-		$PlayZone/Timer.start()
-		$Timer.text = str(count_time)
+#func _timeout():
+	#count_time -= 1
+	#if count_time < 0:
+		#if legal and card_data[2] not in ["oro", "maldicion", "tentacion"]:
+			#Globals.hist_cards.append(card_data)
+			#card.play_card(pos)
+			#count_time = max_time
+			#flag = true
+			#$Timer.text = ""
+		#pass
+	#else:
+		#$PlayZone/Timer.start()
+		#$Timer.text = str(count_time)
 
 func _resolve_game_oficio(card, pos) -> bool:
 		self.card = card

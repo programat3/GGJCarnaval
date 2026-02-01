@@ -19,6 +19,8 @@ func _process(delta: float) -> void:
 			var d = card.data[1]
 
 func check_raycast_legal_move():
-	if d != oficio or Globals.hist_cards.size() > 0:
+	if d != oficio or Globals.hist_cards.size() > 1:
 		is_legal = false
+	else:
+		is_legal = true
 		

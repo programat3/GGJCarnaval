@@ -7,7 +7,6 @@
 size = Vector2(150.00003, 200)
 
 [node name="Card" type="Node2D" unique_id=1574349592]
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_gtudq")
 
 [node name="CardFrame01" type="Sprite2D" parent="." unique_id=1100835774]
@@ -33,3 +32,5 @@ position = Vector2(0, 29.5)
 rotation = -3.1415925
 
 [node name="Sprite2D" type="Sprite2D" parent="typeB" unique_id=1205593483]
+
+[connection signal="input_event" from="FullCard" to="." method="_pick_card"]

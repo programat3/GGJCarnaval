@@ -46,19 +46,19 @@ stretch_mode = 0
 script = ExtResource("1_jjgbg")
 
 [node name="slot1" parent="CardManager" unique_id=1625145771 instance=ExtResource("3_kry3j")]
-position = Vector2(290, 90)
+position = Vector2(290, 130)
 id = 1
 
 [node name="slot2" parent="CardManager" unique_id=2057165855 instance=ExtResource("3_kry3j")]
-position = Vector2(490, 90)
+position = Vector2(490, 130)
 id = 2
 
 [node name="slot3" parent="CardManager" unique_id=870777413 instance=ExtResource("3_kry3j")]
-position = Vector2(690, 90)
+position = Vector2(690, 130)
 id = 3
 
 [node name="slot4" parent="CardManager" unique_id=1405306621 instance=ExtResource("3_kry3j")]
-position = Vector2(890, 90)
+position = Vector2(890, 130)
 id = 4
 
 [node name="GoldCounter" type="Label" parent="CardManager" unique_id=1163922224]

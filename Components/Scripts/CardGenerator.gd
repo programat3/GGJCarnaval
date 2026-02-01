@@ -26,6 +26,7 @@ func generate(a, b, c):
 			var oficio_b = preload("res://Components/Oficio.tscn").instantiate()
 			
 
+
 			oficio_a.oficio = a
 			oficio_b.oficio = b
 			
@@ -53,3 +54,8 @@ func create_card(n,r):
 	var s = load(r)
 	n.get_child(0).texture = s
 	
+func _pick_card(a,b,c):
+	if b is InputEventMouseButton and b.button_index == MOUSE_BUTTON_LEFT:
+		self.scale = Vector2(0.35,0.35)
+		pass
+	pass
