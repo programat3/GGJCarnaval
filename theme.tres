@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://dl3ussfgngfg2"]
+
+[ext_resource type="FontFile" uid="uid://bpr1retloo68r" path="res://Assets/font/TimesNewPixel.ttf" id="1_e1x85"]
+
+[resource]
+default_font = ExtResource("1_e1x85")
+default_font_size = 50

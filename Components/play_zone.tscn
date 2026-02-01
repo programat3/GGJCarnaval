@@ -6,4 +6,3 @@
 script = ExtResource("1_gdhwn")
 
 [node name="Timer" type="Timer" parent="." unique_id=526060099]
-wait_time = 6.6000000000000005

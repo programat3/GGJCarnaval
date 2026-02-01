@@ -5,6 +5,15 @@ class_name Card
 @export var data : Array[String]
 
 var start_position: Vector2
+var active = false
+
+func _set_active():
+	self.active = true
+	
+func play_card(pos):
+	position = pos
+	played = true
+	self.remove_child($FullCard)
 
 func save_position():
 	start_position = position
@@ -25,11 +34,14 @@ func generate(a, b, c):
 			
 			$typeA.add_child(oficio_a)
 			$typeB.add_child(oficio_b)
+			
+
 		"oro":
 			
 			print("Oro")
 			self.create_card($typeA,"res://Assets/Sprites/Cards/" + a + ".png")
 			self.create_card($typeB,"res://Assets/Sprites/Cards/" + a + ".png")
+		
 		"tentacion":
 			print("tentacion")
 		"maldicion":
@@ -39,5 +51,5 @@ func generate(a, b, c):
 
 func create_card(n,r):
 	var s = load(r)
-	n.get_child(1).texture = s
+	n.get_child(0).texture = s
 	

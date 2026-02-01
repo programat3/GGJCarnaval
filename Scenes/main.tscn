@@ -2,24 +2,44 @@
 
 [ext_resource type="Script" uid="uid://l5apouosldlb" path="res://Scenes/Controllers/CardController.gd" id="1_jjgbg"]
 [ext_resource type="Script" uid="uid://c0bgkicplb8rv" path="res://Scenes/Controllers/GameManager.gd" id="1_kry3j"]
-[ext_resource type="Texture2D" uid="uid://drxm0bgovxm8k" path="res://Assets/Sprites/Cards/Back_Card_01.png" id="3_8gbba"]
+[ext_resource type="Texture2D" uid="uid://o5bioxje3i4h" path="res://Assets/Sprites/Devil_BackGround_01.png" id="2_6bp64"]
+[ext_resource type="Texture2D" uid="uid://d26y7yt6gjf2f" path="res://Assets/Sprites/Cards/back.png" id="2_kry3j"]
 [ext_resource type="PackedScene" uid="uid://d10snob30ub1i" path="res://Components/play_zone.tscn" id="3_jjvhh"]
 [ext_resource type="PackedScene" uid="uid://bcjxh2dat4o37" path="res://Components/slot.tscn" id="3_kry3j"]
+[ext_resource type="Texture2D" uid="uid://d01nipc3cjnge" path="res://Assets/Sprites/Work_Area_01.png" id="6_21xkr"]
+[ext_resource type="Texture2D" uid="uid://bf3yiri4ytir3" path="res://Assets/Sprites/Gold_Icon_Ui_01.png" id="7_hptm8"]
+[ext_resource type="Theme" uid="uid://dl3ussfgngfg2" path="res://theme.tres" id="8_ynf5e"]
+[ext_resource type="AudioStream" uid="uid://cyywg0fditb74" path="res://Assets/Huaino.ogg" id="10_hptm8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jjvhh"]
 size = Vector2(80, 320)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kry3j"]
-
 [node name="Main" type="Node2D" unique_id=1874896625]
 script = ExtResource("1_kry3j")
+
+[node name="DevilBackGround01" type="Sprite2D" parent="." unique_id=485616168]
+position = Vector2(580, 400)
+texture = ExtResource("2_6bp64")
+
+[node name="PlayZone" parent="." unique_id=709183700 instance=ExtResource("3_jjvhh")]
+position = Vector2(1000, 584)
+shape = SubResource("RectangleShape2D_jjvhh")
+target_position = Vector2(-820, 1)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
+type = "PlayZone"
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayZone" unique_id=897172652]
+position = Vector2(-409, 5)
+texture = ExtResource("6_21xkr")
 
 [node name="Card_spawn" type="TextureButton" parent="." unique_id=1150373148]
 offset_left = 28.0
 offset_top = 156.0
 offset_right = 164.0
 offset_bottom = 367.55554
-texture_normal = ExtResource("3_8gbba")
+texture_normal = ExtResource("2_kry3j")
 stretch_mode = 0
 
 [node name="CardManager" type="Node2D" parent="." unique_id=1435220689]
@@ -42,26 +62,39 @@ position = Vector2(890, 90)
 id = 4
 
 [node name="GoldCounter" type="Label" parent="CardManager" unique_id=1163922224]
-offset_left = 1102.0
-offset_right = 1149.0
-offset_bottom = 23.0
-text = "Oro: 0"
+offset_left = 1046.0
+offset_top = 13.0
+offset_right = 1093.0
+offset_bottom = 63.0
+theme = ExtResource("8_ynf5e")
+text = "X "
 horizontal_alignment = 2
 
-[node name="PlayZone" parent="." unique_id=709183700 instance=ExtResource("3_jjvhh")]
-position = Vector2(864, 564)
-shape = SubResource("RectangleShape2D_jjvhh")
-target_position = Vector2(-700, 1)
-collision_mask = 2
-collide_with_areas = true
-collide_with_bodies = false
-type = "PlayZone"
+[node name="TextureRect" type="TextureRect" parent="CardManager/GoldCounter" unique_id=2046490596]
+layout_mode = 1
+anchors_preset = -1
+anchor_bottom = 0.22000001
+offset_left = -37.0
+offset_top = 5.0
+offset_right = 3.0
+offset_bottom = 34.0
+texture = ExtResource("7_hptm8")
+expand_mode = 1
 
-[node name="ExchangeZone" parent="." unique_id=2008964339 instance=ExtResource("3_jjvhh")]
-position = Vector2(1043, 155)
-shape = SubResource("RectangleShape2D_kry3j")
-target_position = Vector2(0, 250)
-collision_mask = 2
-collide_with_areas = true
+[node name="Timer" type="Label" parent="." unique_id=1851366119]
+offset_left = 44.0
+offset_top = 17.0
+offset_right = 119.0
+offset_bottom = 267.0
+theme = ExtResource("8_ynf5e")
+theme_override_font_sizes/font_size = 250
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=220253258]
+anchor_mode = 0
+ignore_rotation = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=400101127]
+stream = ExtResource("10_hptm8")
+autoplay = true
 
 [connection signal="pressed" from="Card_spawn" to="CardManager" method="_on_card_spawn_pressed"]

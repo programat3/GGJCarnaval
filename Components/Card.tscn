@@ -1,39 +1,35 @@
 [gd_scene format=3 uid="uid://cpbr5raucmtx4"]
 
 [ext_resource type="Script" uid="uid://dlv5xxudsn84" path="res://Components/Scripts/CardGenerator.gd" id="1_gtudq"]
-[ext_resource type="Texture2D" uid="uid://bqij7ntx20005" path="res://Assets/Sprites/Cards/Card_Frame_01.png" id="2_bmiwj"]
+[ext_resource type="Texture2D" uid="uid://dcocfdclhjiq3" path="res://Assets/Sprites/Cards/front.png" id="2_bmiwj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtudq"]
-size = Vector2(88, 136)
+size = Vector2(150.00003, 200)
 
 [node name="Card" type="Node2D" unique_id=1574349592]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_gtudq")
+
+[node name="CardFrame01" type="Sprite2D" parent="." unique_id=1100835774]
+texture_filter = 3
+texture = ExtResource("2_bmiwj")
 
 [node name="FullCard" type="Area2D" parent="." unique_id=3804007]
 collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FullCard" unique_id=1739525382]
-position = Vector2(0, -1)
+position = Vector2(-7.152555e-06, 1.4305112e-05)
+scale = Vector2(0.9999997, 0.9999997)
 shape = SubResource("RectangleShape2D_gtudq")
 
-[node name="typeA" type="Area2D" parent="." unique_id=743184954]
-position = Vector2(0, -30)
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="typeA" unique_id=922806161]
-polygon = PackedVector2Array(-45, -39, -45, 38, 45, 26, 44, -39)
+[node name="typeA" type="Node2D" parent="." unique_id=1536017550]
+position = Vector2(0, -29.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="typeA" unique_id=1275184900]
 
-[node name="typeB" type="Area2D" parent="." unique_id=1191307342]
-position = Vector2(0, 31)
+[node name="typeB" type="Node2D" parent="." unique_id=387079490]
+position = Vector2(0, 29.5)
 rotation = -3.1415925
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="typeB" unique_id=523842759]
-position = Vector2(8.742278e-08, 1)
-polygon = PackedVector2Array(-45, -39, -45, 38, 45, 26, 44, -39)
-
 [node name="Sprite2D" type="Sprite2D" parent="typeB" unique_id=1205593483]
-
-[node name="CardFrame01" type="Sprite2D" parent="." unique_id=1100835774]
-texture = ExtResource("2_bmiwj")
