@@ -9,43 +9,64 @@ var gold := 0
 var slot
 var freed = []
 @onready var gold_label: Label = $GoldCounter
-@onready var exchangeZone = $"../ExchangeZone"
-
+@onready var exchangeZone = $"../PlayZone"
+var played
+var dragging = false
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	first = true
+	gold_label.text = "X %d" % Globals.coins
 
 func _process(delta: float) -> void:
 	if card_being_dragged:
 		var mouse_pos = get_global_mouse_position()
 		card_being_dragged.position = Vector2(clamp(mouse_pos.x, 0 , screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
 
+
+func is_point_in_sweep(point: Vector2, shapecast: ShapeCast2D) -> bool:
+	print(point)
+	var start = shapecast.global_position
+	var end = start + shapecast.target_position
+	var radius = shapecast.shape.size.x
+	var dist = Geometry2D.get_closest_point_to_segment(point, start, end).distance_to(point)
+	print(radius)
+	print(dist)
+	return dist >= radius
+
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.is_pressed():
-			var card = raycast_check_card()
-			slot = raycast_check_slot()
-			if card:
-				if card.played:
-					card_being_dragged = null
-				else:
+			var mouse_pos = get_global_mouse_position()
+			var chekeo = is_point_in_sweep(mouse_pos, $"../PlayZone")
+			print(chekeo)
+			if chekeo:
+				var card = raycast_check_card()
+				slot = raycast_check_slot()
+				if card:
 					card.save_position()
 					card_being_dragged = card
 					
 		elif event.is_released():
+			# var mouse_pos = get_global_mouse_position()
 			if card_being_dragged:
-				var played := false
-				
-				exchangeZone.force_shapecast_update()
-				var n = exchangeZone.get_collision_count()
-				
+				var n = exchangeZone.get_collision_count()	
 				for i in range(n):
 					var collider = exchangeZone.get_collider(i)
 					if collider.get_parent() == card_being_dragged:
-						played = resolve_play_gold(card_being_dragged)
-						break
+						match card_being_dragged.data[2]:
+							"oro":
+								print("card oro: ", card_being_dragged)
+								played = resolve_play_gold(card_being_dragged)
+								break
+							"oficio":
+								var mouse_pos = get_global_mouse_position()
+								print("oficio")
+								played = self.get_parent()._resolve_game_oficio(card_being_dragged, mouse_pos)
+								if played:
+									slot.free_slot()
+								break
 						
-				if not played:
+				if not played and card_being_dragged.data[2] == "oro":
 					reject_play(card_being_dragged)
 					
 			card_being_dragged = null
@@ -53,6 +74,8 @@ func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_R and card_being_dragged:
 				card_being_dragged.rotation_degrees += 45
+
+
 
 func check_legal_move(t):
 	var legal = t.get_node("Oficio").check_raycast_legal_move()
@@ -70,6 +93,7 @@ func raycast_check_card():
 		return null
 	for i in result:
 		if i.collider.name == "FullCard":
+			print(i.collider.name)
 			var c = i.collider.get_parent()
 			return c
 	return null
@@ -126,6 +150,7 @@ func resolve_play_gold(card) -> bool:
 		return true
 
 	if card.data[2] == "oro":
+		print("en resolve play")
 		card.played = true
 		add_gold()
 		freed.append(slot.id)
@@ -139,8 +164,5 @@ func reject_play(card):
 	card.rotation = 0
 
 func add_gold():
-	gold += 1
-	gold_label.text = "Oro: %d" % gold
-
-func _on_timeout():
-	pass
+	Globals.get_gold(1)
+	gold_label.text = "X %d" % Globals.coins

@@ -7,10 +7,11 @@ monitoring = false
 monitorable = false
 script = ExtResource("1_pgf7g")
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=2094887703]
-polygon = PackedVector2Array(-45, -39, -45, 38, 45, 26, 44, -39)
-
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1264450374]
 target_position = Vector2(0, -150)
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=919946777]
+position = Vector2(-3.0769234, 0.76923084)
+polygon = PackedVector2Array(-45, -39, -44.61539, 52.307697, 53.846157, 4.615385, 54.076923, -38.76923)
